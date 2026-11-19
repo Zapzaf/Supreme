@@ -41,12 +41,16 @@ public class EnchantsAndEffectsUtil {
                 lore.add("");
             }
 
-            lore.add(ChatColor.AQUA + "Soulbound");
+            if (GearOptions.soulbound()) {
+                lore.add(ChatColor.AQUA + "Soulbound");
+            }
 
             // find path
             String itemPath = getNewIdSupremeLegacy(item.getItemId()).toLowerCase();
 
-            buildLoreEffects(lore, itemPath);
+            if (GearOptions.armorPotionEffects()) {
+                buildLoreEffects(lore, itemPath);
+            }
 
             meta.setLore(lore);
 
@@ -90,7 +94,9 @@ public class EnchantsAndEffectsUtil {
                 lore.add("");
             }
 
-            lore.add(ChatColor.AQUA + "Soulbound");
+            if (GearOptions.soulbound()) {
+                lore.add(ChatColor.AQUA + "Soulbound");
+            }
 
             // find path
             String itemPath = getNewIdSupremeLegacy(item.getItemId()).toLowerCase();

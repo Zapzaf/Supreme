@@ -1,5 +1,9 @@
 package com.github.relativobr.supreme.gear;
 
+import org.bukkit.potion.PotionEffect;
+
+import com.github.relativobr.supreme.util.GearOptions;
+
 import com.github.relativobr.supreme.Supreme;
 import com.github.relativobr.supreme.machine.multiblock.MultiBlockGearFabricator;
 import com.github.relativobr.supreme.util.EnchantsAndEffectsUtil;
@@ -16,12 +20,30 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 
-public class AbstractArmor extends SlimefunArmorPiece implements ProtectiveArmor, Soulbound, NotPlaceable {
+public class AbstractArmor extends SlimefunArmorPiece implements ProtectiveArmor, NotPlaceable {
 
   @ParametersAreNonnullByDefault
   private AbstractArmor(SlimefunItemStack item, ItemStack[] recipe) {
     super(ItemGroups.ARMOR_CATEGORY, item, MultiBlockGearFabricator.getMachine(), recipe,
-            EnchantsAndEffectsUtil.getPotionEffects(item));
+            GearOptions.armorPotionEffects() ? EnchantsAndEffectsUtil.getPotionEffects(item) : new PotionEffect[0]);
+  }
+
+  /** A piece of Supreme armor, set up by supreme-gear-options in the config. */
+  @ParametersAreNonnullByDefault
+  private static AbstractArmor create(SlimefunItemStack item, ItemStack[] recipe) {
+    if (!GearOptions.armorAttributes()) {
+      GearOptions.removeArmorAttributes(item);
+    }
+    return GearOptions.soulbound() ? new WithSoulbound(item, recipe) : new AbstractArmor(item, recipe);
+  }
+
+  /** Supreme armor that stays in the inventory on death. */
+  private static final class WithSoulbound extends AbstractArmor implements Soulbound {
+
+    @ParametersAreNonnullByDefault
+    private WithSoulbound(SlimefunItemStack item, ItemStack[] recipe) {
+      super(item, recipe);
+    }
   }
 
   public static void setup(Supreme sup) {
@@ -45,64 +67,64 @@ public class AbstractArmor extends SlimefunArmorPiece implements ProtectiveArmor
         ArmorThornium.THORNIUM_BOOTS_RARE, ArmorThornium.THORNIUM_BOOTS_EPIC, ArmorThornium.THORNIUM_BOOTS_LEGENDARY,
         ArmorThornium.THORNIUM_BOOTS_SUPREME);
 
-    new AbstractArmor(ArmorBasic.TITANIUM_HELMET, ArmorBasic.RECIPE_TITANIUM_HELMET).register(sup);
-    new AbstractArmor(ArmorBasic.AURUM_HELMET, ArmorBasic.RECIPE_AURUM_HELMET).register(sup);
-    new AbstractArmor(ArmorBasic.ADAMANTIUM_HELMET, ArmorBasic.RECIPE_ADAMANTIUM_HELMET).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_HELMET, ArmorThornium.RECIPE_THORNIUM_HELMET).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_HELMET_MAGIC, ItemTier.getMagicRecipe(ArmorThornium.THORNIUM_HELMET)).register(
+    create(ArmorBasic.TITANIUM_HELMET, ArmorBasic.RECIPE_TITANIUM_HELMET).register(sup);
+    create(ArmorBasic.AURUM_HELMET, ArmorBasic.RECIPE_AURUM_HELMET).register(sup);
+    create(ArmorBasic.ADAMANTIUM_HELMET, ArmorBasic.RECIPE_ADAMANTIUM_HELMET).register(sup);
+    create(ArmorThornium.THORNIUM_HELMET, ArmorThornium.RECIPE_THORNIUM_HELMET).register(sup);
+    create(ArmorThornium.THORNIUM_HELMET_MAGIC, ItemTier.getMagicRecipe(ArmorThornium.THORNIUM_HELMET)).register(
         sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_HELMET_RARE,
+    create(ArmorThornium.THORNIUM_HELMET_RARE,
         ItemTier.getRareRecipe(ArmorThornium.THORNIUM_HELMET_MAGIC)).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_HELMET_EPIC,
+    create(ArmorThornium.THORNIUM_HELMET_EPIC,
         ItemTier.getEpicRecipe(ArmorThornium.THORNIUM_HELMET_RARE)).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_HELMET_LEGENDARY,
+    create(ArmorThornium.THORNIUM_HELMET_LEGENDARY,
         ItemTier.getLegendaryRecipe(ArmorThornium.THORNIUM_HELMET_EPIC)).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_HELMET_SUPREME,
+    create(ArmorThornium.THORNIUM_HELMET_SUPREME,
         ItemTier.getSupremeRecipe(ArmorThornium.THORNIUM_HELMET_LEGENDARY)).register(sup);
 
-    new AbstractArmor(ArmorBasic.TITANIUM_CHESTPLATE, ArmorBasic.RECIPE_TITANIUM_CHESTPLATE).register(sup);
-    new AbstractArmor(ArmorBasic.AURUM_CHESTPLATE, ArmorBasic.RECIPE_AURUM_CHESTPLATE).register(sup);
-    new AbstractArmor(ArmorBasic.ADAMANTIUM_CHESTPLATE, ArmorBasic.RECIPE_ADAMANTIUM_CHESTPLATE).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_CHESTPLATE, ArmorThornium.RECIPE_THORNIUM_CHESTPLATE).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_CHESTPLATE_MAGIC,
+    create(ArmorBasic.TITANIUM_CHESTPLATE, ArmorBasic.RECIPE_TITANIUM_CHESTPLATE).register(sup);
+    create(ArmorBasic.AURUM_CHESTPLATE, ArmorBasic.RECIPE_AURUM_CHESTPLATE).register(sup);
+    create(ArmorBasic.ADAMANTIUM_CHESTPLATE, ArmorBasic.RECIPE_ADAMANTIUM_CHESTPLATE).register(sup);
+    create(ArmorThornium.THORNIUM_CHESTPLATE, ArmorThornium.RECIPE_THORNIUM_CHESTPLATE).register(sup);
+    create(ArmorThornium.THORNIUM_CHESTPLATE_MAGIC,
         ItemTier.getMagicRecipe(ArmorThornium.THORNIUM_CHESTPLATE)).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_CHESTPLATE_RARE,
+    create(ArmorThornium.THORNIUM_CHESTPLATE_RARE,
         ItemTier.getRareRecipe(ArmorThornium.THORNIUM_CHESTPLATE_MAGIC)).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_CHESTPLATE_EPIC,
+    create(ArmorThornium.THORNIUM_CHESTPLATE_EPIC,
         ItemTier.getEpicRecipe(ArmorThornium.THORNIUM_CHESTPLATE_RARE)).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_CHESTPLATE_LEGENDARY,
+    create(ArmorThornium.THORNIUM_CHESTPLATE_LEGENDARY,
         ItemTier.getLegendaryRecipe(ArmorThornium.THORNIUM_CHESTPLATE_EPIC)).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_CHESTPLATE_SUPREME,
+    create(ArmorThornium.THORNIUM_CHESTPLATE_SUPREME,
         ItemTier.getSupremeRecipe(ArmorThornium.THORNIUM_CHESTPLATE_LEGENDARY)).register(sup);
 
-    new AbstractArmor(ArmorBasic.TITANIUM_LEGGINGS, ArmorBasic.RECIPE_TITANIUM_LEGGINGS).register(sup);
-    new AbstractArmor(ArmorBasic.AURUM_LEGGINGS, ArmorBasic.RECIPE_AURUM_LEGGINGS).register(sup);
-    new AbstractArmor(ArmorBasic.ADAMANTIUM_LEGGINGS, ArmorBasic.RECIPE_ADAMANTIUM_LEGGINGS).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_LEGGINGS, ArmorThornium.RECIPE_THORNIUM_LEGGINGS).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_LEGGINGS_MAGIC,
+    create(ArmorBasic.TITANIUM_LEGGINGS, ArmorBasic.RECIPE_TITANIUM_LEGGINGS).register(sup);
+    create(ArmorBasic.AURUM_LEGGINGS, ArmorBasic.RECIPE_AURUM_LEGGINGS).register(sup);
+    create(ArmorBasic.ADAMANTIUM_LEGGINGS, ArmorBasic.RECIPE_ADAMANTIUM_LEGGINGS).register(sup);
+    create(ArmorThornium.THORNIUM_LEGGINGS, ArmorThornium.RECIPE_THORNIUM_LEGGINGS).register(sup);
+    create(ArmorThornium.THORNIUM_LEGGINGS_MAGIC,
         ItemTier.getMagicRecipe(ArmorThornium.THORNIUM_LEGGINGS)).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_LEGGINGS_RARE,
+    create(ArmorThornium.THORNIUM_LEGGINGS_RARE,
         ItemTier.getRareRecipe(ArmorThornium.THORNIUM_LEGGINGS_MAGIC)).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_LEGGINGS_EPIC,
+    create(ArmorThornium.THORNIUM_LEGGINGS_EPIC,
         ItemTier.getEpicRecipe(ArmorThornium.THORNIUM_LEGGINGS_RARE)).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_LEGGINGS_LEGENDARY,
+    create(ArmorThornium.THORNIUM_LEGGINGS_LEGENDARY,
         ItemTier.getLegendaryRecipe(ArmorThornium.THORNIUM_LEGGINGS_EPIC)).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_LEGGINGS_SUPREME,
+    create(ArmorThornium.THORNIUM_LEGGINGS_SUPREME,
         ItemTier.getSupremeRecipe(ArmorThornium.THORNIUM_LEGGINGS_LEGENDARY)).register(sup);
 
-    new AbstractArmor(ArmorBasic.TITANIUM_BOOTS, ArmorBasic.RECIPE_TITANIUM_BOOTS).register(sup);
-    new AbstractArmor(ArmorBasic.AURUM_BOOTS, ArmorBasic.RECIPE_AURUM_BOOTS).register(sup);
-    new AbstractArmor(ArmorBasic.ADAMANTIUM_BOOTS, ArmorBasic.RECIPE_ADAMANTIUM_BOOTS).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_BOOTS, ArmorThornium.RECIPE_THORNIUM_BOOTS).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_BOOTS_MAGIC, ItemTier.getMagicRecipe(ArmorThornium.THORNIUM_BOOTS)).register(
+    create(ArmorBasic.TITANIUM_BOOTS, ArmorBasic.RECIPE_TITANIUM_BOOTS).register(sup);
+    create(ArmorBasic.AURUM_BOOTS, ArmorBasic.RECIPE_AURUM_BOOTS).register(sup);
+    create(ArmorBasic.ADAMANTIUM_BOOTS, ArmorBasic.RECIPE_ADAMANTIUM_BOOTS).register(sup);
+    create(ArmorThornium.THORNIUM_BOOTS, ArmorThornium.RECIPE_THORNIUM_BOOTS).register(sup);
+    create(ArmorThornium.THORNIUM_BOOTS_MAGIC, ItemTier.getMagicRecipe(ArmorThornium.THORNIUM_BOOTS)).register(
         sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_BOOTS_RARE, ItemTier.getRareRecipe(ArmorThornium.THORNIUM_BOOTS_MAGIC)).register(
+    create(ArmorThornium.THORNIUM_BOOTS_RARE, ItemTier.getRareRecipe(ArmorThornium.THORNIUM_BOOTS_MAGIC)).register(
         sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_BOOTS_EPIC, ItemTier.getEpicRecipe(ArmorThornium.THORNIUM_BOOTS_RARE)).register(
+    create(ArmorThornium.THORNIUM_BOOTS_EPIC, ItemTier.getEpicRecipe(ArmorThornium.THORNIUM_BOOTS_RARE)).register(
         sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_BOOTS_LEGENDARY,
+    create(ArmorThornium.THORNIUM_BOOTS_LEGENDARY,
         ItemTier.getLegendaryRecipe(ArmorThornium.THORNIUM_BOOTS_EPIC)).register(sup);
-    new AbstractArmor(ArmorThornium.THORNIUM_BOOTS_SUPREME,
+    create(ArmorThornium.THORNIUM_BOOTS_SUPREME,
         ItemTier.getSupremeRecipe(ArmorThornium.THORNIUM_BOOTS_LEGENDARY)).register(sup);
   }
 

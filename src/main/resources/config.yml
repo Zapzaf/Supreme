@@ -912,6 +912,19 @@ supreme-enchant:
     mending: 20
     thorns: 20
 # -------------------------------
+# supreme-gear-options: Supreme armor, weapons and tools. Changes need a restart.
+# -------------------------------
+supreme-gear-options:
+  # The potion effects the Supreme armor gives whoever wears it (set per piece in supreme-effect below).
+  armor-potion-effects: false
+  # Supreme armor, weapons and tools stay in your inventory when you die.
+  # Also affects items players already have.
+  soulbound: false
+  # The "When worn" attributes the armor gets from its netherite/diamond base item: Armor, Armor Toughness
+  # and Knockback Resistance. false = Supreme armor gives NO armor points, toughness or knockback
+  # resistance, and the "When worn" lines are hidden. Only affects armor crafted after the change.
+  armor-attributes: true
+# -------------------------------
 # supreme-effects
 # -------------------------------
 # 1 - 10 = amplifier effect

@@ -1,5 +1,7 @@
 package com.github.relativobr.supreme.tools;
 
+import com.github.relativobr.supreme.util.GearOptions;
+
 import static com.github.relativobr.supreme.Supreme.getSupremeOptions;
 
 import com.github.relativobr.supreme.Supreme;
@@ -15,11 +17,26 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import org.bukkit.inventory.ItemStack;
 
-public class AbstractTools extends SlimefunItem implements Soulbound, NotPlaceable {
+public class AbstractTools extends SlimefunItem implements NotPlaceable {
 
   @ParametersAreNonnullByDefault
   private AbstractTools(@Nonnull SlimefunItemStack stack, ItemStack[] recipe) {
     super(ItemGroups.TOOLS_CATEGORY, stack, MultiBlockGearFabricator.getMachine(), recipe);
+  }
+
+  /** Supreme tools, soulbound or not (supreme-gear-options.soulbound in the config). */
+  @ParametersAreNonnullByDefault
+  private static AbstractTools create(@Nonnull SlimefunItemStack stack, ItemStack[] recipe) {
+    return GearOptions.soulbound() ? new WithSoulbound(stack, recipe) : new AbstractTools(stack, recipe);
+  }
+
+  /** Supreme tools that stay in the inventory on death. */
+  private static final class WithSoulbound extends AbstractTools implements Soulbound {
+
+    @ParametersAreNonnullByDefault
+    private WithSoulbound(@Nonnull SlimefunItemStack stack, ItemStack[] recipe) {
+      super(stack, recipe);
+    }
   }
 
   public static void setup(Supreme sup) {
@@ -38,80 +55,80 @@ public class AbstractTools extends SlimefunItem implements Soulbound, NotPlaceab
         ToolsThornium.THORNIUM_SHOVEL_MAGIC, ToolsThornium.THORNIUM_SHOVEL_RARE, ToolsThornium.THORNIUM_SHOVEL_EPIC,
         ToolsThornium.THORNIUM_SHOVEL_LEGENDARY, ToolsThornium.THORNIUM_SHOVEL_SUPREME);
 
-    final AbstractTools titaniumAxe = new AbstractTools(ToolsBasic.TITANIUM_AXE, ToolsBasic.RECIPE_TITANIUM_AXE);
+    final AbstractTools titaniumAxe = create(ToolsBasic.TITANIUM_AXE, ToolsBasic.RECIPE_TITANIUM_AXE);
     titaniumAxe.register(sup);
-    final AbstractTools aurumAxe = new AbstractTools(ToolsBasic.AURUM_AXE, ToolsBasic.RECIPE_AURUM_AXE);
+    final AbstractTools aurumAxe = create(ToolsBasic.AURUM_AXE, ToolsBasic.RECIPE_AURUM_AXE);
     aurumAxe.register(sup);
-    final AbstractTools adamantiumAxe = new AbstractTools(ToolsBasic.ADAMANTIUM_AXE, ToolsBasic.RECIPE_ADAMANTIUM_AXE);
+    final AbstractTools adamantiumAxe = create(ToolsBasic.ADAMANTIUM_AXE, ToolsBasic.RECIPE_ADAMANTIUM_AXE);
     adamantiumAxe.register(sup);
-    final AbstractTools axe = new AbstractTools(ToolsThornium.THORNIUM_AXE, ToolsThornium.RECIPE_THORNIUM_AXE);
+    final AbstractTools axe = create(ToolsThornium.THORNIUM_AXE, ToolsThornium.RECIPE_THORNIUM_AXE);
     axe.register(sup);
-    final AbstractTools axeMagic = new AbstractTools(ToolsThornium.THORNIUM_AXE_MAGIC,
+    final AbstractTools axeMagic = create(ToolsThornium.THORNIUM_AXE_MAGIC,
         ItemTier.getMagicRecipe(ToolsThornium.THORNIUM_AXE));
     axeMagic.register(sup);
-    final AbstractTools axeRare = new AbstractTools(ToolsThornium.THORNIUM_AXE_RARE,
+    final AbstractTools axeRare = create(ToolsThornium.THORNIUM_AXE_RARE,
         ItemTier.getRareRecipe(ToolsThornium.THORNIUM_AXE_MAGIC));
     axeRare.register(sup);
-    final AbstractTools axeEpic = new AbstractTools(ToolsThornium.THORNIUM_AXE_EPIC,
+    final AbstractTools axeEpic = create(ToolsThornium.THORNIUM_AXE_EPIC,
         ItemTier.getEpicRecipe(ToolsThornium.THORNIUM_AXE_RARE));
     axeEpic.register(sup);
-    final AbstractTools axeLegendary = new AbstractTools(ToolsThornium.THORNIUM_AXE_LEGENDARY,
+    final AbstractTools axeLegendary = create(ToolsThornium.THORNIUM_AXE_LEGENDARY,
         ItemTier.getLegendaryRecipe(ToolsThornium.THORNIUM_AXE_EPIC));
     axeLegendary.register(sup);
-    final AbstractTools axeSupreme = new AbstractTools(ToolsThornium.THORNIUM_AXE_SUPREME,
+    final AbstractTools axeSupreme = create(ToolsThornium.THORNIUM_AXE_SUPREME,
         ItemTier.getSupremeRecipe(ToolsThornium.THORNIUM_AXE_LEGENDARY));
     axeSupreme.register(sup);
 
-    final AbstractTools titaniumPickaxe = new AbstractTools(ToolsBasic.TITANIUM_PICKAXE,
+    final AbstractTools titaniumPickaxe = create(ToolsBasic.TITANIUM_PICKAXE,
         ToolsBasic.RECIPE_TITANIUM_PICKAXE);
     titaniumPickaxe.register(sup);
-    final AbstractTools aurumPickaxe = new AbstractTools(ToolsBasic.AURUM_PICKAXE, ToolsBasic.RECIPE_AURUM_PICKAXE);
+    final AbstractTools aurumPickaxe = create(ToolsBasic.AURUM_PICKAXE, ToolsBasic.RECIPE_AURUM_PICKAXE);
     aurumPickaxe.register(sup);
-    final AbstractTools adamantiumPickaxe = new AbstractTools(ToolsBasic.ADAMANTIUM_PICKAXE,
+    final AbstractTools adamantiumPickaxe = create(ToolsBasic.ADAMANTIUM_PICKAXE,
         ToolsBasic.RECIPE_ADAMANTIUM_PICKAXE);
     adamantiumPickaxe.register(sup);
-    final AbstractTools pickaxe = new AbstractTools(ToolsThornium.THORNIUM_PICKAXE,
+    final AbstractTools pickaxe = create(ToolsThornium.THORNIUM_PICKAXE,
         ToolsThornium.RECIPE_THORNIUM_PICKAXE);
     pickaxe.register(sup);
-    final AbstractTools pickaxeMagic = new AbstractTools(ToolsThornium.THORNIUM_PICKAXE_MAGIC,
+    final AbstractTools pickaxeMagic = create(ToolsThornium.THORNIUM_PICKAXE_MAGIC,
         ItemTier.getMagicRecipe(ToolsThornium.THORNIUM_PICKAXE));
     pickaxeMagic.register(sup);
-    final AbstractTools pickaxeRare = new AbstractTools(ToolsThornium.THORNIUM_PICKAXE_RARE,
+    final AbstractTools pickaxeRare = create(ToolsThornium.THORNIUM_PICKAXE_RARE,
         ItemTier.getRareRecipe(ToolsThornium.THORNIUM_PICKAXE_MAGIC));
     pickaxeRare.register(sup);
-    final AbstractTools pickaxeEpic = new AbstractTools(ToolsThornium.THORNIUM_PICKAXE_EPIC,
+    final AbstractTools pickaxeEpic = create(ToolsThornium.THORNIUM_PICKAXE_EPIC,
         ItemTier.getEpicRecipe(ToolsThornium.THORNIUM_PICKAXE_RARE));
     pickaxeEpic.register(sup);
-    final AbstractTools pickaxeLegendary = new AbstractTools(ToolsThornium.THORNIUM_PICKAXE_LEGENDARY,
+    final AbstractTools pickaxeLegendary = create(ToolsThornium.THORNIUM_PICKAXE_LEGENDARY,
         ItemTier.getLegendaryRecipe(ToolsThornium.THORNIUM_PICKAXE_EPIC));
     pickaxeLegendary.register(sup);
-    final AbstractTools pickaxeSupreme = new AbstractTools(ToolsThornium.THORNIUM_PICKAXE_SUPREME,
+    final AbstractTools pickaxeSupreme = create(ToolsThornium.THORNIUM_PICKAXE_SUPREME,
         ItemTier.getSupremeRecipe(ToolsThornium.THORNIUM_PICKAXE_LEGENDARY));
     pickaxeSupreme.register(sup);
 
-    final AbstractTools titaniumShovel = new AbstractTools(ToolsBasic.TITANIUM_SHOVEL,
+    final AbstractTools titaniumShovel = create(ToolsBasic.TITANIUM_SHOVEL,
         ToolsBasic.RECIPE_TITANIUM_SHOVEL);
     titaniumShovel.register(sup);
-    final AbstractTools aurumShovel = new AbstractTools(ToolsBasic.AURUM_SHOVEL, ToolsBasic.RECIPE_AURUM_SHOVEL);
+    final AbstractTools aurumShovel = create(ToolsBasic.AURUM_SHOVEL, ToolsBasic.RECIPE_AURUM_SHOVEL);
     aurumShovel.register(sup);
-    final AbstractTools adamantiumShovel = new AbstractTools(ToolsBasic.ADAMANTIUM_SHOVEL,
+    final AbstractTools adamantiumShovel = create(ToolsBasic.ADAMANTIUM_SHOVEL,
         ToolsBasic.RECIPE_ADAMANTIUM_SHOVEL);
     adamantiumShovel.register(sup);
-    final AbstractTools shovel = new AbstractTools(ToolsThornium.THORNIUM_SHOVEL, ToolsThornium.RECIPE_THORNIUM_SHOVEL);
+    final AbstractTools shovel = create(ToolsThornium.THORNIUM_SHOVEL, ToolsThornium.RECIPE_THORNIUM_SHOVEL);
     shovel.register(sup);
-    final AbstractTools shovelMagic = new AbstractTools(ToolsThornium.THORNIUM_SHOVEL_MAGIC,
+    final AbstractTools shovelMagic = create(ToolsThornium.THORNIUM_SHOVEL_MAGIC,
         ItemTier.getMagicRecipe(ToolsThornium.THORNIUM_SHOVEL));
     shovelMagic.register(sup);
-    final AbstractTools shovelRare = new AbstractTools(ToolsThornium.THORNIUM_SHOVEL_RARE,
+    final AbstractTools shovelRare = create(ToolsThornium.THORNIUM_SHOVEL_RARE,
         ItemTier.getRareRecipe(ToolsThornium.THORNIUM_SHOVEL_MAGIC));
     shovelRare.register(sup);
-    final AbstractTools shovelEpic = new AbstractTools(ToolsThornium.THORNIUM_SHOVEL_EPIC,
+    final AbstractTools shovelEpic = create(ToolsThornium.THORNIUM_SHOVEL_EPIC,
         ItemTier.getEpicRecipe(ToolsThornium.THORNIUM_SHOVEL_RARE));
     shovelEpic.register(sup);
-    final AbstractTools shovelLegendary = new AbstractTools(ToolsThornium.THORNIUM_SHOVEL_LEGENDARY,
+    final AbstractTools shovelLegendary = create(ToolsThornium.THORNIUM_SHOVEL_LEGENDARY,
         ItemTier.getLegendaryRecipe(ToolsThornium.THORNIUM_SHOVEL_EPIC));
     shovelLegendary.register(sup);
-    final AbstractTools shovelSupreme = new AbstractTools(ToolsThornium.THORNIUM_SHOVEL_SUPREME,
+    final AbstractTools shovelSupreme = create(ToolsThornium.THORNIUM_SHOVEL_SUPREME,
         ItemTier.getSupremeRecipe(ToolsThornium.THORNIUM_SHOVEL_LEGENDARY));
     shovelSupreme.register(sup);
 
