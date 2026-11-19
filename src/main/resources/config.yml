@@ -4,7 +4,7 @@ options:
   lang: en-US
   custom-ticker-delay: 2
   enable-generators: true
-  limit-production-generators: false
+  limit-production-generators: true
   delay-time-valid-generators: 600
   base-time-virtual-garden: 15
   base-time-virtual-aquarium: 15
@@ -15,7 +15,7 @@ options:
   mob-tech-enable-iron-golem: true
   mob-tech-enable-zombie: true
   enable-quarry: true
-  limit-production-quarry: false
+  limit-production-quarry: true
   enable-weapons: true
   enable-tools: true
   enable-armor: true
@@ -672,7 +672,7 @@ supreme-enchant:
     depth_strider: 2
     mending: 0
   supreme_boots_thornium:
-    unbreakable: true
+    unbreakable: false
     protection: 7
     fire_protection: 5
     blast_protection: 5
@@ -683,7 +683,7 @@ supreme-enchant:
     depth_strider: 5
     mending: 7
   supreme_boots_magic:
-    unbreakable: true
+    unbreakable: false
     protection: 10
     fire_protection: 7
     blast_protection: 7
@@ -694,7 +694,7 @@ supreme-enchant:
     depth_strider: 7
     mending: 10
   supreme_boots_rare:
-    unbreakable: true
+    unbreakable: false
     protection: 20
     fire_protection: 10
     blast_protection: 10
@@ -705,7 +705,7 @@ supreme-enchant:
     depth_strider: 10
     mending: 10
   supreme_boots_epic:
-    unbreakable: true
+    unbreakable: false
     protection: 30
     fire_protection: 20
     blast_protection: 20
@@ -716,7 +716,7 @@ supreme-enchant:
     depth_strider: 20
     mending: 15
   supreme_boots_legendary:
-    unbreakable: true
+    unbreakable: false
     protection: 35
     fire_protection: 25
     blast_protection: 25
@@ -727,7 +727,7 @@ supreme-enchant:
     depth_strider: 25
     mending: 20
   supreme_boots_supreme:
-    unbreakable: true
+    unbreakable: false
     protection: 50
     fire_protection: 50
     blast_protection: 50
@@ -738,7 +738,7 @@ supreme-enchant:
     depth_strider: 40
     mending: 20
   supreme_chestplate_thornium:
-    unbreakable: true
+    unbreakable: false
     protection: 7
     fire_protection: 5
     blast_protection: 5
@@ -747,7 +747,7 @@ supreme-enchant:
     mending: 7
     thorns: 5
   supreme_chestplate_magic:
-    unbreakable: true
+    unbreakable: false
     protection: 10
     fire_protection: 7
     blast_protection: 7
@@ -756,7 +756,7 @@ supreme-enchant:
     mending: 10
     thorns: 7
   supreme_chestplate_rare:
-    unbreakable: true
+    unbreakable: false
     protection: 20
     fire_protection: 10
     blast_protection: 10
@@ -765,7 +765,7 @@ supreme-enchant:
     mending: 10
     thorns: 9
   supreme_chestplate_epic:
-    unbreakable: true
+    unbreakable: false
     protection: 30
     fire_protection: 20
     blast_protection: 20
@@ -774,7 +774,7 @@ supreme-enchant:
     mending: 15
     thorns: 11
   supreme_chestplate_legendary:
-    unbreakable: true
+    unbreakable: false
     protection: 35
     fire_protection: 25
     blast_protection: 25
@@ -783,7 +783,7 @@ supreme-enchant:
     mending: 15
     thorns: 13
   supreme_chestplate_supreme:
-    unbreakable: true
+    unbreakable: false
     protection: 50
     fire_protection: 50
     blast_protection: 50
@@ -792,7 +792,7 @@ supreme-enchant:
     mending: 20
     thorns: 20
   supreme_helmet_thornium:
-    unbreakable: true
+    unbreakable: false
     protection: 7
     fire_protection: 5
     blast_protection: 5
@@ -803,7 +803,7 @@ supreme-enchant:
     respiration: 5
     aqua_affinity: 5
   supreme_helmet_magic:
-    unbreakable: true
+    unbreakable: false
     protection: 10
     fire_protection: 7
     blast_protection: 7
@@ -814,7 +814,7 @@ supreme-enchant:
     respiration: 7
     aqua_affinity: 7
   supreme_helmet_rare:
-    unbreakable: true
+    unbreakable: false
     protection: 20
     fire_protection: 10
     blast_protection: 10
@@ -825,7 +825,7 @@ supreme-enchant:
     respiration: 10
     aqua_affinity: 10
   supreme_helmet_epic:
-    unbreakable: true
+    unbreakable: false
     protection: 30
     fire_protection: 20
     blast_protection: 20
@@ -836,7 +836,7 @@ supreme-enchant:
     respiration: 20
     aqua_affinity: 20
   supreme_helmet_legendary:
-    unbreakable: true
+    unbreakable: false
     protection: 35
     fire_protection: 25
     blast_protection: 25
@@ -847,7 +847,7 @@ supreme-enchant:
     respiration: 25
     aqua_affinity: 25
   supreme_helmet_supreme:
-    unbreakable: true
+    unbreakable: false
     protection: 50
     fire_protection: 50
     blast_protection: 50
@@ -858,7 +858,7 @@ supreme-enchant:
     respiration: 50
     aqua_affinity: 50
   supreme_leggings_thornium:
-    unbreakable: true
+    unbreakable: false
     protection: 7
     fire_protection: 5
     blast_protection: 5
@@ -867,7 +867,7 @@ supreme-enchant:
     mending: 7
     thorns: 5
   supreme_leggings_magic:
-    unbreakable: true
+    unbreakable: false
     protection: 10
     fire_protection: 7
     blast_protection: 7
@@ -876,7 +876,7 @@ supreme-enchant:
     mending: 10
     thorns: 7
   supreme_leggings_rare:
-    unbreakable: true
+    unbreakable: false
     protection: 20
     fire_protection: 10
     blast_protection: 10
@@ -885,7 +885,7 @@ supreme-enchant:
     mending: 10
     thorns: 9
   supreme_leggings_epic:
-    unbreakable: true
+    unbreakable: false
     protection: 30
     fire_protection: 20
     blast_protection: 20
@@ -894,7 +894,7 @@ supreme-enchant:
     mending: 15
     thorns: 11
   supreme_leggings_legendary:
-    unbreakable: true
+    unbreakable: false
     protection: 35
     fire_protection: 25
     blast_protection: 25
@@ -903,7 +903,7 @@ supreme-enchant:
     mending: 15
     thorns: 13
   supreme_leggings_supreme:
-    unbreakable: true
+    unbreakable: false
     protection: 50
     fire_protection: 50
     blast_protection: 50
@@ -919,7 +919,7 @@ supreme-gear-options:
   armor-potion-effects: false
   # Supreme armor, weapons and tools stay in your inventory when you die.
   # Also affects items players already have.
-  soulbound: false
+  soulbound: true
   # The "When worn" attributes the armor gets from its netherite/diamond base item: Armor, Armor Toughness
   # and Knockback Resistance. false = Supreme armor gives NO armor points, toughness or knockback
   # resistance, and the "When worn" lines are hidden. Only affects armor crafted after the change.
